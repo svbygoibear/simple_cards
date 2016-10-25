@@ -1,12 +1,10 @@
-package simple_cards.core.framework
-
-import scalaz.\&/.That
+package simple_cards.core
 
 /**
   * Created by Simone on 10/25/2016.
   * github: https://github.com/svbygoibear
   */
 
-object PokerInterpreter {
+class Main extends App {
 
 }

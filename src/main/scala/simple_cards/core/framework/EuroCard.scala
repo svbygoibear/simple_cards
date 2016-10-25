@@ -39,5 +39,5 @@ object Queen extends CardValue(12)
 object King extends CardValue(13)
 object Ace extends CardValue(14)
 // Creates the sequence when it comes to assigning values to cards
-object CardValue{ val allSortedCards = Seq(One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace) }
+object CardValue{ val allSortedCards: Seq[CardValue] = Seq(One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace) }
 

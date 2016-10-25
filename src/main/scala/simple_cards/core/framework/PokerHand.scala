@@ -13,8 +13,8 @@ import Scalaz._
 case class PokerHand(cards: IndexedSeq[EuroCard]) { // Using IndexedSeq as this will access any sequence O(1)
   type TypeHand = IndexedSeq[EuroCard]
 
-  val royalCards = IndexedSeq(Ten, Jack, Queen, King, Ace)  // Setting up royal flush hand
-  val possibleStraightValues = CardValue.allSortedCards.sliding(5) // Slides to 5 consecutive values from the card value sequence, this is used to check if a hand is straight
+  val royalCards: IndexedSeq[CardValue] = IndexedSeq(Ten, Jack, Queen, King, Ace)  // Setting up royal flush hand
+  val possibleStraightValues: Iterator[Seq[CardValue]] = CardValue.allSortedCards.sliding(5) // Slides to 5 consecutive values from the card value sequence, this is used to check if a hand is straight
 
   def isRoyal : Option[TypeHand] = royalCards.forall(value => cards.exists(_.cardValue == value)) match { // Checks if value is a royal value
       case true => cards.some
@@ -47,7 +47,7 @@ case class PokerHand(cards: IndexedSeq[EuroCard]) { // Using IndexedSeq as this 
 
   // Checks if it is Two Pairs: Two different pairs.
   def isTwoPairs: Option[TypeHand] = {
-    val pairs = cards.groupBy(_.cardValue).filter(_._2.size == 2)
+    val pairs: Map[Int, IndexedSeq[EuroCard]] = cards.groupBy(_.cardValue).filter(_._2.size == 2)
     pairs.size == 2 match {
       case true => pairs.values.flatten.toIndexedSeq.some
       case false => None

@@ -20,6 +20,8 @@ object Main extends App {
 
   val people = PokerHands(Seq[Player](Player("Player 1", person1), Player("Player 2", person2)))
 
+  //val winner = PokerInterpreter.getWinner(people)
+
   println(people.isRoyalFlushPresent)
   println(s"${person2.isOnePair}")
 }

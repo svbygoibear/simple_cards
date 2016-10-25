@@ -17,9 +17,9 @@ case class PokerHand(cards: IndexedSeq[EuroCard]) { // Using IndexedSeq as this 
   val possibleStraightValues: Iterator[Seq[CardValue]] = CardValue.allSortedCards.sliding(5) // Slides to 5 consecutive values from the card value sequence, this is used to check if a hand is straight
 
   def isRoyal : Option[TypeHand] = royalCards.forall(value => cards.exists(_.cardValue == value)) match { // Checks if value is a royal value
-      case true => cards.some
-      case false => None
-    }
+    case true => cards.some
+    case false => None
+  }
 
   // Checks if the cards are a flush: All cards of the same suit.
   def isFlush: Option[TypeHand] = cards.groupBy(_.suit).size == 1 match { // Checking that when cards are grouped by suit, their suit should be the same, thus the size should be 1
@@ -55,8 +55,11 @@ case class PokerHand(cards: IndexedSeq[EuroCard]) { // Using IndexedSeq as this 
   }
 
   // Checks if it is One Pair: Two cards of the same value.
-  def isOnePair: Option[TypeHand] = cards.groupBy(_.cardValue).find(_._2.size == 2).map(_._2)
+  def isOnePair: Option[TypeHand] =  cards.sortBy(_.cardValue).reverse.groupBy(_.cardValue).find(_._2.size == 2).map(_._2)
 
   // Checks if it is a Full House: Three of a kind and a pair.
   def isFullHouse: Option[TypeHand] = isThreeOfAKind.zip(isOnePair).headOption.map(_._1)
+
+  // Returns the highest rated card from a hand set (regardless of suit, as the value is the important factor)
+  def getHighCard: EuroCard = cards.sortBy(_.cardValue).reverse.groupBy(_.cardValue).head._2.head
 }

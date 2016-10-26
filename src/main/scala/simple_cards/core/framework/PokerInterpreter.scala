@@ -29,9 +29,7 @@ object PokerInterpreter {
                   case Some(player) => player // Resolves the best player out of two matching pairs
                   case None => resolveOnePair(players) match {
                     case Some(players) => players // Resolves the best hand out of a single pair
-                    case None =>
-                      val highestHand = players.getHighestHandsGrouped
-                      if(highestHand == 1) highestHand.map(_._2).head.head else null // gets the hand with the highest card value, otherwise null
+                    case None => players.getHighestHandsGrouped.map(_._2).head.head // gets the hand with the highest card value, otherwise null
                   }
                 }
               }
@@ -62,7 +60,7 @@ object PokerInterpreter {
   def resolveFourOfAKind(players: PokerHands): Option[Player] = {
     players.isFourOfAKindPresent match {
       case Some(ps) =>
-        val h = ps.sortBy(player => player.hand.getHighCard).reverse.groupBy(play => play.hand.getHighCard).filter(_._2.size == 1)
+        val h = players.getHighestHandsGrouped
         h.size == 1 match {
           case true => h.head._2.headOption
           case false => None
@@ -137,6 +135,8 @@ object PokerInterpreter {
     players.isOnePairPresent match {
       case Some(ps) =>
         val h = players.getHighestHandsGrouped
+        println("what is the highest hands grouped?? ")
+        println(h)
         h.size == 1 match {
           case true => h.head._2.headOption
           case false => None

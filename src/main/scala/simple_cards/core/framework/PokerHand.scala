@@ -61,5 +61,5 @@ case class PokerHand(cards: IndexedSeq[EuroCard]) { // Using IndexedSeq as this 
   def isFullHouse: Option[TypeHand] = isThreeOfAKind.zip(isOnePair).headOption.map(_._1)
 
   // Returns the highest rated card from a hand set (regardless of suit, as the value is the important factor)
-  def getHighCard: EuroCard = cards.sortBy(_.cardValue).reverse.groupBy(_.cardValue).head._2.head
+  def getHighCard: Int = cards.sortBy(_.cardValue).reverse.groupBy(_.cardValue).head._1
 }

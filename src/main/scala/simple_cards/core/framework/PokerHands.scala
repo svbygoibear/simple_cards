@@ -61,6 +61,5 @@ case class PokerHands(players: Seq[Player]) {
     case h => h.some
   }
 
-  def getHighestHandsGrouped: Map[EuroCard, Seq[Player]] =
-    players.sortBy(player => player.hand.getHighCard).reverse.groupBy(play => play.hand.getHighCard).filter(_._2.size == 1)
+  def getHighestHandsGrouped: Map[Int, Seq[Player]] = players.groupBy(play => play.hand.getHighCard).filter(_._2.size == 1)
 }

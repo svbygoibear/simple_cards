@@ -21,7 +21,9 @@ sealed class CardValue(val naturalNumber: Int) extends Ordered[CardValue]{
 
 // Card case class which can be built from it's value and the representing suit
 // This is a case class as it allows pattern matching and do not need the new keyword for new instances
-case class EuroCard(cardValue: Int, suit: EuroSuit)
+case class EuroCard(cardValue: Int, suit: EuroSuit) extends Ordered[EuroCard]{
+  def compare(that: EuroCard) = cardValue.compare(that.cardValue)
+}
 
 //Shows which value is higher than others
 object One extends CardValue(1)

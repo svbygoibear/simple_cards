@@ -1,2 +1,17 @@
-/ .idea
-/project
+# SBT
+lib_managed/
+project/boot/
+project/plugins/project/
+.cache/
+.lib/
+dist/*
+
+# Scala
+target
+*.sc
+
+# IntelliJ Idea
+*.ipr
+*.iws
+.idea
+/.idea
